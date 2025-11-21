@@ -21,6 +21,7 @@
   "homepage": "https://github.com/Gabrielmororo180/finance-app-api#readme",
   "devDependencies": {
     "eslint": "^8.46.0",
+    "eslint-config-prettier": "^10.1.8",
     "git-commit-msg-linter": "^5.0.8",
     "globals": "^16.5.0",
     "husky": "^8.0.3",
