@@ -25,3 +25,10 @@ export const serverError = () => {
         body: { error: 'Internal server error' },
     }
 }
+
+export const notFound = (body) => {
+    return {
+        statusCode: 404,
+        body,
+    }
+}
