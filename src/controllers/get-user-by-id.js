@@ -1,13 +1,14 @@
-import { getUserByIdUseCase } from '../use-cases/get-user-by-id.js'
+import { GetUserByIdUseCase } from '../use-cases/get-user-by-id.js'
 import { badRequest, notFound, ok, serverError } from './helpers.js'
 import validator from 'validator'
+
 export class getUserByIdController {
     async execute(userId) {
         if (!userId || userId.trim() === '') {
             return badRequest({ error: 'User ID is required' })
         }
 
-        const userUseCase = new getUserByIdUseCase()
+        const userUseCase = new GetUserByIdUseCase()
 
         try {
             if (!validator.isUUID(userId)) {
