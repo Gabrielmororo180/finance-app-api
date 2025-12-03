@@ -12,5 +12,14 @@ export class PostgresCreateUserRepository {
                 createUserParams.password,
             ],
         )
+
+        const createdUser = {
+            id: createUserParams.id,
+            firstName: createUserParams.firstName,
+            lastName: createUserParams.lastName,
+            email: createUserParams.email,
+        }
+
+        return createdUser
     }
 }

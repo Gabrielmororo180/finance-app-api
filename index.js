@@ -2,7 +2,7 @@ import 'dotenv/config.js'
 import express from 'express'
 import { pool } from './src/db/postgres/helper.js'
 import { createUserController } from './src/controllers/create-user.js'
-
+import { getUserByIdController } from './src/controllers/get-user-by-id.js'
 const app = express()
 
 // Middleware para parsear JSON
@@ -14,6 +14,19 @@ app.get('/', async (req, res) => {
         res.send(JSON.stringify(result.rows))
     } catch (err) {
         res.status(500).json({ error: err.message })
+    }
+})
+
+app.get('/api/users/:id', async (req, res) => {
+    try {
+        const controller = new getUserByIdController()
+        const userId = req.params.id
+        const { statusCode, body } = await controller.execute(userId)
+
+        res.status(statusCode).json(body)
+    } catch (error) {
+        console.error('Error handling request:', error)
+        res.status(500).json({ error: 'Internal server error' })
     }
 })
 
