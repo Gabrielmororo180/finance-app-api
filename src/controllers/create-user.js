@@ -1,6 +1,7 @@
 import { CreateUSerUseCase } from '../use-cases/create-user.js'
 import validator from 'validator'
 import { badRequest, created, serverError } from './helpers.js'
+import { EmailInUseError } from '../errors/user.js'
 export class createUserController {
     execute(httpRequest) {
         const createUserParams = httpRequest.body
@@ -36,6 +37,9 @@ export class createUserController {
             })
             .catch((error) => {
                 console.error('Error creating user:', error)
+                if (error instanceof EmailInUseError) {
+                    return badRequest({ message: error.message })
+                }
                 return serverError()
             })
     }
