@@ -1,4 +1,4 @@
-import { badRequest } from '../helpers.js'
+import { badRequest } from './http.js'
 
 export const generateInvalidPasswordResponse = () => {
     return badRequest({

@@ -4,7 +4,7 @@ import { pool } from './src/db/postgres/helper.js'
 import { createUserController } from './src/controllers/create-user.js'
 import { getUserByIdController } from './src/controllers/get-user-by-id.js'
 import { updateUserController } from './src/controllers/update-user.js'
-
+import { deleteUserController } from './src/controllers/delete-user.js'
 const app = express()
 
 // Middleware para parsear JSON
@@ -26,6 +26,19 @@ app.get('/api/users/:id', async (req, res) => {
         const { statusCode, body } = await controller.execute(userId)
 
         res.status(statusCode).json(body)
+    } catch (error) {
+        console.error('Error handling request:', error)
+        res.status(500).json({ error: 'Internal server error' })
+    }
+})
+
+app.delete('/api/users/:userId', async (req, res) => {
+    try {
+        const controller = new deleteUserController()
+        const userId = req.params.userId
+
+        const httpResponse = await controller.execute(userId)
+        res.status(httpResponse.statusCode).json(httpResponse.body)
     } catch (error) {
         console.error('Error handling request:', error)
         res.status(500).json({ error: 'Internal server error' })
