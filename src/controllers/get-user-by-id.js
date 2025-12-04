@@ -1,7 +1,7 @@
 import { GetUserByIdUseCase } from '../use-cases/get-user-by-id.js'
-import { badRequest, notFound, ok, serverError } from './helpers.js'
+import { badRequest, notFound, ok, serverError } from './helpers/http.js'
 import validator from 'validator'
-
+import { generateInvalididResponse } from './helpers/user.js'
 export class getUserByIdController {
     async execute(userId) {
         if (!userId || userId.trim() === '') {
@@ -12,7 +12,7 @@ export class getUserByIdController {
 
         try {
             if (!validator.isUUID(userId)) {
-                return badRequest({ error: 'Invalid user ID format' })
+                return generateInvalididResponse()
             }
 
             const user = await userUseCase.execute(userId)
